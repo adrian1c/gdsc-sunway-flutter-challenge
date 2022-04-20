@@ -86,52 +86,61 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const Divider(),
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: const Color.fromARGB(132, 60, 67, 70),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                      itemCount: items.length + 1,
-                      itemBuilder: (context, index) {
-                        // If list is empty, show this
-                        if (items.isEmpty) {
-                          return const Center(child: Text('No items'));
-                        }
+              Container(
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(132, 60, 67, 70),
+                    borderRadius: BorderRadius.circular(10)),
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: items.length + 1,
+                    itemBuilder: (context, index) {
+                      // If list is empty, show this
+                      if (items.isEmpty) {
+                        return const Center(
+                            child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text('No items',
+                              style: TextStyle(color: Colors.white)),
+                        ));
+                      }
 
-                        // If reached the end of list, show this
-                        if (index == items.length) {
-                          return Column(
-                            children: const [
-                              Divider(),
-                              Center(child: Text('End of List')),
-                            ],
-                          );
-                        }
-
-                        // If the two conditions above are not met, show this by default
-                        return Material(
-                          color: null,
-                          borderRadius: null,
-                          child: ListTile(
-                            title: Text(items[index],
-                                style:
-                                    const TextStyle(fontFamily: 'RobotoMono')),
-                            trailing: IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  items.removeAt(index);
-                                });
-                              },
-                            ),
-                          ),
+                      // If reached the end of list, show this
+                      if (index == items.length) {
+                        return Column(
+                          children: const [
+                            Divider(color: Colors.white),
+                            Center(
+                                child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('End of List',
+                                  style: TextStyle(color: Colors.white)),
+                            )),
+                          ],
                         );
-                      }),
-                ),
+                      }
+
+                      // If the two conditions above are not met, show this by default
+                      return Material(
+                        color: null,
+                        borderRadius: null,
+                        child: ListTile(
+                          title: Text(items[index],
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600)),
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                items.removeAt(index);
+                              });
+                            },
+                          ),
+                        ),
+                      );
+                    }),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
